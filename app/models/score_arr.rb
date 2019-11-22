@@ -1,0 +1,2 @@
+class ScoreArr < ApplicationRecord
+end

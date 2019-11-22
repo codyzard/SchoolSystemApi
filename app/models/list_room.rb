@@ -1,0 +1,2 @@
+class ListRoom < ApplicationRecord
+end

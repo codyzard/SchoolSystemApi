@@ -1,0 +1,2 @@
+class TeacherStorage < ApplicationRecord
+end
