@@ -4,7 +4,7 @@ class CreateRooms < ActiveRecord::Migration[5.2]
 
       t.string :name
       # t.references :list_room, foreign_key: true
-      # t.references :mess, foreign_key: true
+      
       
 
       t.timestamps
