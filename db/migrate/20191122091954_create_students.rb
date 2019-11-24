@@ -4,8 +4,10 @@ class CreateStudents < ActiveRecord::Migration[5.2]
 
       #t.references :parent, foreign_key:true
       #t.references :lop_hoc, foreign_key:true
-      #t.references :user_role, foreign_key: true
+      t.references :user_role, foreign_key: true
+      t.references :parent, foreign_key: true
       
+
       t.timestamps
     end
   end
