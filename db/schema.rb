@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_093116) do
+ActiveRecord::Schema.define(version: 2019_11_24_052917) do
+
+  create_table "announces", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "documents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
     t.string "docType"
     t.string "content"
     t.datetime "created_at", null: false
@@ -35,10 +41,8 @@ ActiveRecord::Schema.define(version: 2019_11_22_093116) do
   end
 
   create_table "list_rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_list_rooms_on_user_id"
   end
 
   create_table "lop_hocs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -54,10 +58,8 @@ ActiveRecord::Schema.define(version: 2019_11_22_093116) do
   end
 
   create_table "parents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_role_id"], name: "index_parents_on_user_role_id"
   end
 
   create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -92,11 +94,8 @@ ActiveRecord::Schema.define(version: 2019_11_22_093116) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "teacher_storages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.bigint "teacher_id"
+    t.index ["teacher_id"], name: "index_subjects_on_teacher_id"
   end
 
   create_table "teachers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -130,8 +129,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_093116) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "list_rooms", "users"
-  add_foreign_key "parents", "user_roles"
+  add_foreign_key "subjects", "teachers"
   add_foreign_key "teachers", "user_roles"
   add_foreign_key "user_roles", "users"
 end
