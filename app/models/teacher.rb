@@ -1,5 +1,4 @@
-class Teacher < ApplicationRecord
-    belongs_to :user_role
+class Teacher < User
     belongs_to :subject
     has_many :lessons
     has_many :lop_hocs
