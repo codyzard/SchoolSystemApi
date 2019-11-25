@@ -8,6 +8,8 @@ gem 'devise'
 gem "simple_token_authentication"
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
+# cancancan
+gem 'cancancan'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.1.0', require: false

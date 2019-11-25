@@ -140,12 +140,10 @@ ActiveRecord::Schema.define(version: 2019_11_24_092926) do
 
   create_table "teachers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.boolean "admin", default: false
-    t.bigint "user_role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "subject_id"
     t.index ["subject_id"], name: "index_teachers_on_subject_id"
-    t.index ["user_role_id"], name: "index_teachers_on_user_role_id"
   end
 
   create_table "user_roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -193,6 +191,5 @@ ActiveRecord::Schema.define(version: 2019_11_24_092926) do
   add_foreign_key "students", "lop_hocs"
   add_foreign_key "students", "user_roles"
   add_foreign_key "teachers", "subjects"
-  add_foreign_key "teachers", "user_roles"
   add_foreign_key "user_roles", "users"
 end
