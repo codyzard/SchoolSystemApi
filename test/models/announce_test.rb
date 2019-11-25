@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TeacherStorageTest < ActiveSupport::TestCase
+class AnnounceTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

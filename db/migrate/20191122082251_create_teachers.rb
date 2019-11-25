@@ -3,8 +3,9 @@ class CreateTeachers < ActiveRecord::Migration[5.2]
     create_table :teachers do |t|
 
       t.boolean :admin, default: false
+      
       t.references :user_role, foreign_key: true
-      #t.referencer :subject, foreign_key: true
+      # t.references :subject, foreign_key: true
 
       t.timestamps
     end
