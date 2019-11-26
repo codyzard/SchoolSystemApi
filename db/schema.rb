@@ -84,8 +84,6 @@ ActiveRecord::Schema.define(version: 2019_11_24_092926) do
   create_table "parents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_role_id"
-    t.index ["user_role_id"], name: "index_parents_on_user_role_id"
   end
 
   create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -126,10 +124,8 @@ ActiveRecord::Schema.define(version: 2019_11_24_092926) do
   create_table "students", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_role_id"
     t.bigint "lop_hoc_id"
     t.index ["lop_hoc_id"], name: "index_students_on_lop_hoc_id"
-    t.index ["user_role_id"], name: "index_students_on_user_role_id"
   end
 
   create_table "subjects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -147,7 +143,7 @@ ActiveRecord::Schema.define(version: 2019_11_24_092926) do
   end
 
   create_table "user_roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "role", default: 1
+    t.integer "role"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -181,7 +177,6 @@ ActiveRecord::Schema.define(version: 2019_11_24_092926) do
   add_foreign_key "lop_hocs", "teachers"
   add_foreign_key "messes", "rooms"
   add_foreign_key "messes", "users"
-  add_foreign_key "parents", "user_roles"
   add_foreign_key "rooms", "list_rooms"
   add_foreign_key "score_arrs", "parents"
   add_foreign_key "score_arrs", "students"
@@ -189,7 +184,6 @@ ActiveRecord::Schema.define(version: 2019_11_24_092926) do
   add_foreign_key "scores", "score_arrs"
   add_foreign_key "storages", "teachers"
   add_foreign_key "students", "lop_hocs"
-  add_foreign_key "students", "user_roles"
   add_foreign_key "teachers", "subjects"
   add_foreign_key "user_roles", "users"
 end
