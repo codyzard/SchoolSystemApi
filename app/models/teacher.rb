@@ -1,5 +1,8 @@
-class Teacher < User
-    belongs_to :subject
+class Teacher < ApplicationRecord
+    # attribute :admin
+    # attr_accessor :admin
+    # belongs_to :subject
+    belongs_to :user_role
     has_many :lessons
     has_many :lop_hocs
     has_many :storages
