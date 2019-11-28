@@ -85,10 +85,7 @@ ActiveRecord::Schema.define(version: 2019_11_24_092926) do
     t.bigint "user_role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-<<<<<<< HEAD
-=======
     t.index ["user_role_id"], name: "index_parents_on_user_role_id"
->>>>>>> master
   end
 
   create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -128,16 +125,11 @@ ActiveRecord::Schema.define(version: 2019_11_24_092926) do
     t.bigint "user_role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-<<<<<<< HEAD
-    t.bigint "lop_hoc_id"
-    t.index ["lop_hoc_id"], name: "index_students_on_lop_hoc_id"
-=======
     t.bigint "parent_id"
     t.bigint "lop_hoc_id"
     t.index ["lop_hoc_id"], name: "index_students_on_lop_hoc_id"
     t.index ["parent_id"], name: "index_students_on_parent_id"
     t.index ["user_role_id"], name: "index_students_on_user_role_id"
->>>>>>> master
   end
 
   create_table "subjects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -191,17 +183,15 @@ ActiveRecord::Schema.define(version: 2019_11_24_092926) do
   add_foreign_key "lop_hocs", "teachers"
   add_foreign_key "messes", "rooms"
   add_foreign_key "messes", "users"
+  add_foreign_key "parents", "user_roles"
   add_foreign_key "rooms", "list_rooms"
   add_foreign_key "score_arrs", "students"
   add_foreign_key "score_arrs", "subjects"
   add_foreign_key "scores", "score_arrs"
   add_foreign_key "storages", "teachers"
   add_foreign_key "students", "lop_hocs"
-<<<<<<< HEAD
-=======
   add_foreign_key "students", "parents"
   add_foreign_key "students", "user_roles"
->>>>>>> master
   add_foreign_key "teachers", "subjects"
   add_foreign_key "user_roles", "users"
 end
