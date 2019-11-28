@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   # Include ActiveModel::Teacher
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :user_roles
+  acts_as_token_authenticatable
+  has_many :user_roles, dependent: :destroy
   has_many :teachers
   has_many :list_rooms
   has_many :messes

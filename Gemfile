@@ -5,7 +5,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 gem 'devise'
-gem "simple_token_authentication"
+gem 'devise_token_auth'
+gem 'simple_token_authentication', '~> 1.0'
+gem 'faker'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 # cancancan
