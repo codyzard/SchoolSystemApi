@@ -10,6 +10,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create  
+    byebug
     user = User.where(email: params[:email]).first
     role =  user.user_roles.find_by(role:  params[:role])
     if user && user.valid_password?(params[:password]) && role
