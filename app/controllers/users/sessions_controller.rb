@@ -11,9 +11,11 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create  
     user = User.where(email: params[:email]).first
-    role =  user.user_roles.find_by(role:  params[:role])
-    if user && user.valid_password?(params[:password]) && role
-        render json: {user:user.as_json(except: [:updated_at,:created_at]),role: role.as_json(except: [:updated_at,:created_at])}, status: 201
+    roles =  user.user_roles
+    # byebug
+    if user && user.valid_password?(params[:password]) && roles
+        render json: {user:user.as_json(except: [:updated_at,:created_at]),roles: roles.as_json(except: [:updated_at,:created_at])}, status: 201
+
     else
         head(:unauthorized)
     end
