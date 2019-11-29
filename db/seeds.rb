@@ -3,7 +3,7 @@ User.create!(
     name:  "admin",
     email: "admin@gmail.com",
     address: "54 Nguyen Luong Bang",
-    birthday: "01-07-1998".to_date,
+    birthday: DateTime.new(1998,01,07),
     password: "123456"
 )
 User.first.user_roles.create(role: 1)
@@ -13,7 +13,7 @@ checkRole = 0;
     name  = Faker::Name.name
     email = "user#{n+1}@gmail.com"
     address = "54 Nguyen Luong Bang"
-    birthday= "01-07-1998".to_date
+    birthday= DateTime.new(1998,01,07)
     password = "123456"
     user = User.create!(
         name:  name,
