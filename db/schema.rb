@@ -65,8 +65,10 @@ ActiveRecord::Schema.define(version: 2019_11_30_044535) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "teacher_id"
     t.bigint "grade_id"
     t.index ["grade_id"], name: "index_lop_hocs_on_grade_id"
+    t.index ["teacher_id"], name: "index_lop_hocs_on_teacher_id"
   end
 
   create_table "lop_hocs_teachers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -187,6 +189,7 @@ ActiveRecord::Schema.define(version: 2019_11_30_044535) do
   add_foreign_key "lessons", "teachers"
   add_foreign_key "list_rooms", "users"
   add_foreign_key "lop_hocs", "grades"
+  add_foreign_key "lop_hocs", "teachers"
   add_foreign_key "lop_hocs_teachers", "lop_hocs"
   add_foreign_key "lop_hocs_teachers", "teachers"
   add_foreign_key "messes", "rooms"
