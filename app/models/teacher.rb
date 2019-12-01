@@ -4,7 +4,7 @@ class Teacher < ApplicationRecord
     # belongs_to :subject
     belongs_to :user_role
     has_many :lessons
-    has_many :lop_hocs
+    has_and_belongs_to_many :lop_hocs
     has_many :storages
     has_many :announces
 end
