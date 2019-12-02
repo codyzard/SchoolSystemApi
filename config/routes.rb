@@ -9,16 +9,26 @@ Rails.application.routes.draw do
   # resources :grades
   # resources :lessons
   # resources :list_rooms
-  # resources :lop_hocs
+  resources :lop_hocs
   # resources :messes
   # resources :parents
   # resources :rooms
   # resources :score_arrs
   # resources :scores
   # resources :storages
-  # resources :students
+  resources :students do
+    member do
+      get 'student_detail'
+    end
+  end
+
   # resources :subjects
-  # resources :teachers
+  resources :teachers do
+    member do
+      get 'lop_hocs'
+    end
+  end
   # resources :user_roles
   get '/users/:authentication_token', to: 'users#show'
+  #Dang
 end

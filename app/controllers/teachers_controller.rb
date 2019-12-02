@@ -1,5 +1,10 @@
 class TeachersController < ApplicationController
-  before_action :set_teacher, only: [:show, :update, :destroy]
+  before_action :set_teacher, only: [:show, :update, :destroy, :lop_hocs]
+  
+  def lop_hocs
+    @lop_hocs = @teacher.lop_hocs
+    render json: @lop_hocs
+  end
 
   # GET /teachers
   def index
