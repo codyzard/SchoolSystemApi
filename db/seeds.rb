@@ -9,7 +9,7 @@ User.create!(
 User.first.user_roles.create(role: 1)
 Teacher.create(admin: true, user_role_id: UserRole.find_by(user_id: User.first.id) )
 checkRole = 0;
-15.times do |n|
+269.times do |n|
     name  = Faker::Name.name
     email = "user#{n+1}@gmail.com"
     address = "54 Nguyen Luong Bang"
@@ -22,23 +22,27 @@ checkRole = 0;
         birthday: birthday,
         password: "123456",
     )
-    if (checkRole <= 4) 
+    if (checkRole <= 28) 
         ur = user.user_roles.create(role: 1)
         Teacher.create(user_role_id: ur.id)
-    elsif (checkRole >= 5 && checkRole <= 9 ) #parents
+    elsif (checkRole >= 29 && checkRole <= 108 ) #parents
         ur = user.user_roles.create(role: 2)
         Parent.create(user_role_id: ur.id)
-    elsif ( checkRole >=10 && checkRole <= 14) #student
+    elsif ( checkRole >=109 && checkRole <= 268) #student
         user.user_roles.create(role: 3)
     end
     checkRole += 1
 end
+
 parents = UserRole.where(role: 2) #RoleParent
 students = UserRole.where(role: 3) #RoleStudent
-parents.each_with_index do |p,index|
-    oya = Parent.find_by(user_role_id: p.id)
-    oya.students.create(user_role_id: students[index].id)
+parents.each_with_index do |p,index| 
+    2.times do |n|
+        oya = Parent.find_by(user_role_id: p.id)
+        oya.students.create(user_role_id: students[index*2+n].id) 
+    end
 end
+
 4.times do |n|
     n+=6
     name = "Lớp "+n.to_s
@@ -51,3 +55,23 @@ Subject.create!(name: "Sinh học")
 Subject.create!(name: "Lịch sử")
 Subject.create!(name: "Địa lý")
 Subject.create!(name: "Ngữ văn")
+
+8.times do |lop|
+    l=LopHoc.create!(grade_id: (lop/2+1),name: "#{lop/2+6}"+"/"+"#{lop/2+1}")
+    7.times do |a|
+        l.teachers<<Teacher.find(a+1+(lop/2)*7+1)
+    end
+end
+160.times do |n|
+    l=LopHoc.find(n/20+1)
+    l.students<<Student.find(n+1)
+end
+
+28.times do |teacher|
+    teacher_id = teacher + 2
+    sj_id = teacher_id - ( 7*(teacher/7) + 1)
+    t = Teacher.find(teacher_id)
+    t.subject_id = sj_id
+    t.save
+end
+
