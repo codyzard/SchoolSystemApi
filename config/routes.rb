@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   resources :documents
   resources :grades
   resources :lessons
-  resources :list_rooms
   resources :lop_hocs
   resources :messes
   resources :parents

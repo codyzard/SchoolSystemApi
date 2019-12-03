@@ -39,11 +39,18 @@ parents.each_with_index do |p,index|
     oya = Parent.find_by(user_role_id: p.id)
     oya.students.create(user_role_id: students[index].id)
 end
+#RoomChat
+User.all.each do |u|
+    r = Room.create!(name: u.name)
+    RoomUser.create!(user_id: u.id, room_id: r.id)
+end
+#Grade 
 4.times do |n|
     n+=6
     name = "Lớp "+n.to_s
     Grade.create!(name: name)
 end
+#Subject
 Subject.create!(name: "Toán")
 Subject.create!(name: "Vật lý")
 Subject.create!(name: "Hóa học")

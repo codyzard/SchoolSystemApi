@@ -137,6 +137,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    redis (4.1.3)
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -183,6 +184,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 5.2.3)
   react-rails
+  redis
   simple_token_authentication (~> 1.0)
   spring
   spring-watcher-listen (~> 2.0.0)
