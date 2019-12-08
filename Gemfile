@@ -15,7 +15,7 @@ gem 'cancancan'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.1.0', require: false
- 
+gem 'redis'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'react-rails'
 gem 'rack-cors'
