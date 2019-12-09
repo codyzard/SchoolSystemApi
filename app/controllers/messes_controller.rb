@@ -3,6 +3,7 @@ class MessesController < ApplicationController
 
   # GET /messes
   def index
+    # @room = Room.find_by(id: param[:id])
     @messes = Mess.all
 
     render json: @messes
@@ -37,7 +38,11 @@ class MessesController < ApplicationController
   def destroy
     @mess.destroy
   end
-
+  
+  def getMessInRoom
+    @messes = Mess.where(room_id: params[:room_id])
+    render json:  @messes
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mess

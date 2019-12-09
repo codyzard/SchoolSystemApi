@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
   # GET /rooms
   def index
     # @rooms = Room.all
-    @rooms = user.rooms
+    @rooms = @user.rooms
     render json: @rooms
   end
 

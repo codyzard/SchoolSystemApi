@@ -10,8 +10,10 @@ Rails.application.routes.draw do
   resources :lessons
   resources :lop_hocs
   resources :messes
+  get '/getMessInRoom/:room_id', to: 'messes#getMessInRoom'
   resources :parents
-  resources :rooms
+  # resources :rooms
+  get '/rooms/:authentication_token', to: 'rooms#index'
   resources :score_arrs
   resources :scores
   resources :storages
