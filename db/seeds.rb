@@ -47,8 +47,8 @@ User.all.each_with_index do |u,index|
         RoomUser.create!(user_id: addFriend.id, room_id: r.id)
         mess1 = Faker::TvShows::Friends.quote
         mess2 = Faker::TvShows::Friends.quote
-        User.first.messes.create!(room_id: r.id, content: mess1)
-        addFriend.messes.create!(room_id: r.id, content: mess2)
+        User.first.messes.create!(room_id: r.id, content: mess1, user_token: User.first.authentication_token)
+        addFriend.messes.create!(room_id: r.id, content: mess2, user_token: addFriend.authentication_token)
     end
 end
 #Grade 

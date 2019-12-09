@@ -41,7 +41,7 @@ class MessesController < ApplicationController
   
   def getMessInRoom
     @messes = Mess.where(room_id: params[:room_id])
-    render json:  @messes
+    render json:  @messes, except: [:user_id]
   end
   private
     # Use callbacks to share common setup or constraints between actions.
