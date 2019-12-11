@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_09_134931) do
+ActiveRecord::Schema.define(version: 2019_12_10_043759) do
 
   create_table "announces", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content"
@@ -100,6 +100,8 @@ ActiveRecord::Schema.define(version: 2019_12_09_134931) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "authentication_token", limit: 20
+    t.index ["authentication_token"], name: "index_rooms_on_authentication_token", unique: true
   end
 
   create_table "score_arrs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

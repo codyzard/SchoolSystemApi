@@ -5,9 +5,22 @@ class RoomsController < ApplicationController
   def index
     # @rooms = Room.all
     @rooms = @user.rooms
-    render json: @rooms
+    @lastMessArr = getLastMess(@rooms)
+    render json: {rooms: @rooms, lastMessArr: @lastMessArr }
   end
 
+  def getLastMess rooms
+    arr =[]
+    rooms.each_with_index do |room, index|
+      m = Mess.where(room_id:room.id).last
+      if (m != nil)
+        arr << m
+      else
+        arr << " "
+      end
+    end
+    return arr
+  end
   # GET /rooms/1
   def show
     render json: @room

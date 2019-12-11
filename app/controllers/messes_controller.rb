@@ -40,9 +40,16 @@ class MessesController < ApplicationController
   end
   
   def getMessInRoom
-    @messes = Mess.where(room_id: params[:room_id])
-    render json:  @messes, except: [:user_id]
+    @room = Room.find_by(id: params[:room_id])
+    @messes = Mess.where(room_id: @room.id)
+    render json: {messes: @messes.as_json(except: [:user_id]), token_room: @room.authentication_token}
   end
+
+  def getSendPerson
+    @user = User.find_by(authentication_token: params[:user_token])
+    render json: @user, only: [:name]
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mess

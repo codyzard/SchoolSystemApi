@@ -51,6 +51,10 @@ User.all.each_with_index do |u,index|
         addFriend.messes.create!(room_id: r.id, content: mess2, user_token: addFriend.authentication_token)
     end
 end
+10.times do |i|
+    mess1 = Faker::TvShows::Friends.quote
+    User.first.messes.create!(room_id: 1, content: mess1,user_token: User.first.authentication_token)
+end
 #Grade 
 4.times do |n|
     n+=6
