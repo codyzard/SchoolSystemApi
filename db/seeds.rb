@@ -7,7 +7,7 @@ User.create!(
     password: "123456"
 )
 User.first.user_roles.create(role: 1)
-Teacher.create(admin: true, user_role_id: UserRole.find_by(user_id: User.first.id) )
+Teacher.create(admin: true, user_role_id: UserRole.find_by(user_id: User.first.id).id )
 checkRole = 0;
 269.times do |n|
     name  = Faker::Name.name
@@ -73,5 +73,17 @@ end
     t = Teacher.find(teacher_id)
     t.subject_id = sj_id
     t.save
+end
+
+160.times do |student|
+    2.times do |semester|
+        7.times do |subject|
+            sa=ScoreArr.create!(student_id:student+1, semester:semester+1, subject_id:subject+1, lop_hoc_id:Student.find(student+1).lop_hoc_id)
+            sa.scores.create!(heso:1,score:rand(5..10))
+            sa.scores.create!(heso:1,score:rand(5..10))
+            sa.scores.create!(heso:2,score:rand(5..10))
+            sa.scores.create!(heso:3,score:rand(5..10))
+        end
+    end
 end
 

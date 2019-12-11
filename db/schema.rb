@@ -102,16 +102,19 @@ ActiveRecord::Schema.define(version: 2019_11_30_044535) do
   end
 
   create_table "score_arrs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "semester"
+    t.bigint "lop_hoc_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "student_id"
     t.bigint "subject_id"
+    t.index ["lop_hoc_id"], name: "index_score_arrs_on_lop_hoc_id"
     t.index ["student_id"], name: "index_score_arrs_on_student_id"
     t.index ["subject_id"], name: "index_score_arrs_on_subject_id"
   end
 
   create_table "scores", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "type"
+    t.integer "heso"
     t.float "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -193,6 +196,7 @@ ActiveRecord::Schema.define(version: 2019_11_30_044535) do
   add_foreign_key "messes", "users"
   add_foreign_key "parents", "user_roles"
   add_foreign_key "rooms", "list_rooms"
+  add_foreign_key "score_arrs", "lop_hocs"
   add_foreign_key "score_arrs", "students"
   add_foreign_key "score_arrs", "subjects"
   add_foreign_key "scores", "score_arrs"

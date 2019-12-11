@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   # resources :grades
   # resources :lessons
   # resources :list_rooms
-  resources :lop_hocs
+  resources :lop_hocs do 
+    member do
+      get 'all_student_info'
+      get 'all_student_score'
+    end
+  end
   # resources :messes
   # resources :parents
   # resources :rooms

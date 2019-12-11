@@ -5,6 +5,7 @@ class CreateScoreArrs < ActiveRecord::Migration[5.2]
       # t.references :student, foreign_key: true
       # t.references :subject, foreign_key: true
       t.integer :semester
+      t.references :lop_hoc, foreign_key: true
       t.timestamps
     end
   end
