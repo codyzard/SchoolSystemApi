@@ -1,16 +1,20 @@
 class AdminController < ApplicationController
+
     def get_teachers
         @ur = get_role(1)
         render json: {@ur.teacher , @ur.user}
     end
+
     def get_parents
         @ur = get_role(2)
         render json: {@ur.parent , @ur.user}
     end
+
     def get_students
         @ur = get_role(3)
         render json: {@ur.student , @ur.user}
     end
+
     def create_user
         #params[
           # :name,
@@ -26,21 +30,20 @@ class AdminController < ApplicationController
             birthday: params[:birthday],
             password: params[:password],
         )
-        case params[:role]
+        ur = user.user_roles.create(role: params[:role])
+        case params[:role].to_i
             when 1
-                ur = user.user_roles.create(role: 1)
                 Teacher.create(user_role_id: ur.id)
             when 2
-                ur = user.user_roles.create(role: 1)
                 Parent.create(user_role_id: ur.id)
             when 3
-                ur = user.user_roles.create(role: 1)
                 Student.create(user_role_id: ur.id)
         end
         render json: user
     end
+
     private 
         def get_role role
-            return UsesRole.where(role: role)
+            return UserRole.where(role: role)
         end
 end
