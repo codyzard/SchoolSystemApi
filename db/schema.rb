@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_10_043759) do
+ActiveRecord::Schema.define(version: 2019_12_12_032107) do
 
   create_table "announces", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content"
@@ -24,12 +24,15 @@ ActiveRecord::Schema.define(version: 2019_12_10_043759) do
 
   create_table "documents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
-    t.string "docType"
-    t.string "content"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "subject_id"
     t.bigint "storage_id"
+    t.string "pin_file_name"
+    t.string "pin_content_type"
+    t.bigint "pin_file_size"
+    t.datetime "pin_updated_at"
     t.index ["storage_id"], name: "index_documents_on_storage_id"
     t.index ["subject_id"], name: "index_documents_on_subject_id"
   end
