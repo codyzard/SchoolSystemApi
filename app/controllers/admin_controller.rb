@@ -26,21 +26,19 @@ class AdminController < ApplicationController
             birthday: params[:birthday],
             password: params[:password],
         )
+        ur = user.user_roles.create(role: 1)
         case params[:role]
             when 1
-                ur = user.user_roles.create(role: 1)
                 Teacher.create(user_role_id: ur.id)
             when 2
-                ur = user.user_roles.create(role: 1)
                 Parent.create(user_role_id: ur.id)
             when 3
-                ur = user.user_roles.create(role: 1)
                 Student.create(user_role_id: ur.id)
         end
         render json: user
     end
     private 
         def get_role role
-            return UsesRole.where(role: role)
+            return UserRole.where(role: role)
         end
 end
