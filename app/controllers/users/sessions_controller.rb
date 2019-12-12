@@ -10,6 +10,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create  
+    # byebug
     user = User.where(email: params[:email]).first
     roles =  user.user_roles
     # byebug

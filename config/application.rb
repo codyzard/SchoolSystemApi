@@ -25,7 +25,6 @@ module SchoolSystem
     config.api_only = true
     config.filter_parameters += [:password]
     config.http_authenticatable = [:database]
-   
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
