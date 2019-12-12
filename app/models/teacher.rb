@@ -1,7 +1,7 @@
 class Teacher < ApplicationRecord
     # attribute :admin
     # attr_accessor :admin
-    # belongs_to :subject
+    has_one :subject
     belongs_to :user_role
     has_many :lessons
     has_and_belongs_to_many :lop_hocs
