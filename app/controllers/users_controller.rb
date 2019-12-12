@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def show
     if @user
       @roles = @user.user_roles
-      render json: {user:@user.as_json(except: [:updated_at,:created_at]),roles: @roles.as_json(except: [:updated_at,:created_at])}, status: 200      
+      render json: {user:@user.as_json(except: [:updated_at,:created_at,:id]),roles: @roles.as_json(except: [:updated_at,:created_at])}, status: 200      
     else
       render status: 404
     end

@@ -40,9 +40,20 @@ parents.each_with_index do |p,index|
     oya.students.create(user_role_id: students[index].id)
 end
 #RoomChat
-User.all.each do |u|
-    r = Room.create!(name: u.name)
-    RoomUser.create!(user_id: u.id, room_id: r.id)
+User.all.each_with_index do |u,index|
+    addFriend = User.all[index+1]
+    if addFriend != nil
+        r = User.first.rooms.create!(name: User.first.name + ", "+addFriend.name)
+        RoomUser.create!(user_id: addFriend.id, room_id: r.id)
+        mess1 = Faker::TvShows::Friends.quote
+        mess2 = Faker::TvShows::Friends.quote
+        User.first.messes.create!(room_id: r.id, content: mess1, user_token: User.first.authentication_token)
+        addFriend.messes.create!(room_id: r.id, content: mess2, user_token: addFriend.authentication_token)
+    end
+end
+10.times do |i|
+    mess1 = Faker::TvShows::Friends.quote
+    User.first.messes.create!(room_id: 1, content: mess1,user_token: User.first.authentication_token)
 end
 #Grade 
 4.times do |n|
