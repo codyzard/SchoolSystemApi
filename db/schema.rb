@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2019_12_12_032107) do
 
   create_table "lop_hocs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
+    t.boolean "lopChuyen", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "grade_id"
