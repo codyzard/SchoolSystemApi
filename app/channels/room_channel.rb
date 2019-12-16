@@ -8,9 +8,10 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def create params
-    @user = User.find(authentication_token: params[:token] )
-    if @user && @user === current_user
-      @user.mess.create(content: params[:content], room_id: params[:room_id])
+    @user = User.find_by(authentication_token: params["token_user"] )
+    @room = Room.find_by(authentication_token: params["token_room"])
+    if @user
+      mess = @user.messes.create!(content: params["content"], room_id: @room.id, user_token: @user.authentication_token)
     else
       render status: 204
     end

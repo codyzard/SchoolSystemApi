@@ -9,7 +9,7 @@ User.create!(
 User.first.user_roles.create(role: 1)
 Teacher.create(admin: true, user_role_id: UserRole.find_by(user_id: User.first.id).id )
 checkRole = 0;
-269.times do |n|
+149.times do |n|
     name  = Faker::Name.name
     email = "user#{n+1}@gmail.com"
     address = "54 Nguyen Luong Bang"
@@ -25,10 +25,10 @@ checkRole = 0;
     if (checkRole <= 28) 
         ur = user.user_roles.create(role: 1)
         Teacher.create(user_role_id: ur.id)
-    elsif (checkRole >= 29 && checkRole <= 108 ) #parents
+    elsif (checkRole >= 29 && checkRole <= 68 ) #parents
         ur = user.user_roles.create(role: 2)
         Parent.create(user_role_id: ur.id)
-    elsif ( checkRole >=109 && checkRole <= 268) #student
+    elsif ( checkRole >=69 && checkRole <= 148) #student
         user.user_roles.create(role: 3)
     end
     checkRole += 1
@@ -54,6 +54,10 @@ User.all.each_with_index do |u,index|
         addFriend.messes.create!(room_id: r.id, content: mess2, user_token: addFriend.authentication_token)
     end
 end
+10.times do |i|
+    mess1 = Faker::TvShows::Friends.quote
+    User.first.messes.create!(room_id: 1, content: mess1,user_token: User.first.authentication_token)
+end
 #Grade 
 4.times do |n|
     n+=6
@@ -70,13 +74,13 @@ Subject.create!(name: "Địa lý")
 Subject.create!(name: "Ngữ văn")
 
 8.times do |lop|
-    l=LopHoc.create!(grade_id: (lop/2+1),name: "#{lop/2+6}"+"/"+"#{lop/2+1}")
+    l=LopHoc.create!(grade_id: (lop/2+1),name: "#{lop/2+6}"+"/"+"#{lop/2+1}", lopChuyen: rand(0..1))
     7.times do |a|
         l.teachers<<Teacher.find(a+1+(lop/2)*7+1)
     end
 end
-160.times do |n|
-    l=LopHoc.find(n/20+1)
+80.times do |n|
+    l=LopHoc.find(n/10+1)
     l.students<<Student.find(n+1)
 end
 
@@ -88,7 +92,7 @@ end
     t.save
 end
 
-160.times do |student|
+80.times do |student|
     2.times do |semester|
         7.times do |subject|
             sa=ScoreArr.create!(student_id:student+1, semester:semester+1, subject_id:subject+1, lop_hoc_id:Student.find(student+1).lop_hoc_id)
