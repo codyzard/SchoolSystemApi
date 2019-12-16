@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_30_044535) do
+ActiveRecord::Schema.define(version: 2019_12_09_134931) do
 
   create_table "announces", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content"
@@ -54,13 +54,6 @@ ActiveRecord::Schema.define(version: 2019_11_30_044535) do
     t.index ["teacher_id"], name: "index_lessons_on_teacher_id"
   end
 
-  create_table "list_rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_list_rooms_on_user_id"
-  end
-
   create_table "lop_hocs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -82,6 +75,7 @@ ActiveRecord::Schema.define(version: 2019_11_30_044535) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "room_id"
+    t.string "user_token"
     t.index ["room_id"], name: "index_messes_on_room_id"
     t.index ["user_id"], name: "index_messes_on_user_id"
   end
@@ -93,12 +87,19 @@ ActiveRecord::Schema.define(version: 2019_11_30_044535) do
     t.index ["user_role_id"], name: "index_parents_on_user_role_id"
   end
 
+  create_table "room_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "room_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_room_users_on_room_id"
+    t.index ["user_id"], name: "index_room_users_on_user_id"
+  end
+
   create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "list_room_id"
-    t.index ["list_room_id"], name: "index_rooms_on_list_room_id"
   end
 
   create_table "score_arrs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -188,14 +189,14 @@ ActiveRecord::Schema.define(version: 2019_11_30_044535) do
   add_foreign_key "lessons", "grades"
   add_foreign_key "lessons", "subjects"
   add_foreign_key "lessons", "teachers"
-  add_foreign_key "list_rooms", "users"
   add_foreign_key "lop_hocs", "grades"
   add_foreign_key "lop_hocs_teachers", "lop_hocs"
   add_foreign_key "lop_hocs_teachers", "teachers"
   add_foreign_key "messes", "rooms"
   add_foreign_key "messes", "users"
   add_foreign_key "parents", "user_roles"
-  add_foreign_key "rooms", "list_rooms"
+  add_foreign_key "room_users", "rooms"
+  add_foreign_key "room_users", "users"
   add_foreign_key "score_arrs", "lop_hocs"
   add_foreign_key "score_arrs", "students"
   add_foreign_key "score_arrs", "subjects"

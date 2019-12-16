@@ -1,10 +1,10 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :update, :destroy]
-
+  before_action :find_user, only: [:index]
   # GET /rooms
   def index
-    @rooms = Room.all
-
+    # @rooms = Room.all
+    @rooms = @user.rooms
     render json: @rooms
   end
 
@@ -47,5 +47,9 @@ class RoomsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def room_params
       params.fetch(:room, {})
+    end
+
+    def find_user
+      @user = User.find_by(authentication_token: params[:authentication_token])     
     end
 end

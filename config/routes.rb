@@ -4,36 +4,36 @@ Rails.application.routes.draw do
     :sessions => 'users/sessions',
     :registrations => 'users/registrations' 
   }
-  # resources :announces
-  # resources :documents
-  # resources :grades
-  # resources :lessons
-  # resources :list_rooms
+  resources :announces
+  resources :documents
+  resources :grades
+  resources :lessons
   resources :lop_hocs do 
     member do
       get 'all_student_info'
       get 'all_student_score'
     end
   end
-  # resources :messes
-  # resources :parents
+  resources :messes
+  get '/getMessInRoom/:room_id', to: 'messes#getMessInRoom'
+  resources :parents
   # resources :rooms
-  # resources :score_arrs
-  # resources :scores
-  # resources :storages
+  get '/rooms/:authentication_token', to: 'rooms#index'
+  resources :score_arrs
+  resources :scores
+  resources :storages
   resources :students do
     member do
       get 'student_detail'
     end
   end
-
-  # resources :subjects
+  resources :subjects
   resources :teachers do
     member do
       get 'lop_hocs'
     end
   end
-  # resources :user_roles
+  resources :user_roles
   get '/users/:authentication_token', to: 'users#show'
-  #Dang
+  put '/users/:authentication_token', to: 'users#update'
 end

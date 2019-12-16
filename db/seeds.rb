@@ -3,7 +3,7 @@ User.create!(
     name:  "admin",
     email: "admin@gmail.com",
     address: "54 Nguyen Luong Bang",
-    birthday: "01-07-1998".to_date,
+    birthday: DateTime.new(1998,01,07),
     password: "123456"
 )
 User.first.user_roles.create(role: 1)
@@ -13,7 +13,7 @@ checkRole = 0;
     name  = Faker::Name.name
     email = "user#{n+1}@gmail.com"
     address = "54 Nguyen Luong Bang"
-    birthday= "01-07-1998".to_date
+    birthday= DateTime.new(1998,01,07)
     password = "123456"
     user = User.create!(
         name:  name,
@@ -42,12 +42,25 @@ parents.each_with_index do |p,index|
         oya.students.create(user_role_id: students[index*2+n].id) 
     end
 end
-
+#RoomChat
+User.all.each_with_index do |u,index|
+    addFriend = User.all[index+1]
+    if addFriend != nil
+        r = User.first.rooms.create!(name: User.first.name + ", "+addFriend.name)
+        RoomUser.create!(user_id: addFriend.id, room_id: r.id)
+        mess1 = Faker::TvShows::Friends.quote
+        mess2 = Faker::TvShows::Friends.quote
+        User.first.messes.create!(room_id: r.id, content: mess1, user_token: User.first.authentication_token)
+        addFriend.messes.create!(room_id: r.id, content: mess2, user_token: addFriend.authentication_token)
+    end
+end
+#Grade 
 4.times do |n|
     n+=6
     name = "Lớp "+n.to_s
     Grade.create!(name: name)
 end
+#Subject
 Subject.create!(name: "Toán")
 Subject.create!(name: "Vật lý")
 Subject.create!(name: "Hóa học")
