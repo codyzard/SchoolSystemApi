@@ -18,6 +18,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     if @document.save
+      @document.upload_drive
       render json: @document, status: :created, location: @document
     else
       render json: @document.errors, status: :unprocessable_entity
