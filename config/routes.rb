@@ -36,6 +36,9 @@ Rails.application.routes.draw do
   resources :user_roles
   get '/users/:authentication_token', to: 'users#show'
   put '/users/:authentication_token', to: 'users#update'
+  get '/admins/getStudents', to: 'admin#get_students'
+  get '/admins/getTeachers', to: 'admin#get_teachers' 
+  get '/admins/getParents', to: 'admin#get_parents'  
+  post '/admins/createUser', to: 'admin#create_user' 
   mount ActionCable.server => '/rooms'
-  
 end

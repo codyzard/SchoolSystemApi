@@ -1,15 +1,27 @@
 class AdminController < ApplicationController
     def get_teachers
         @ur = get_role(1)
-        render json: {@ur.teacher , @ur.user}
+        data = []
+        @ur.each do |i| 
+            data.push({user: i.user,teacher: i.teacher})
+        end
+        render json: data
     end
     def get_parents
         @ur = get_role(2)
-        render json: {@ur.parent , @ur.user}
+        data = []
+        @ur.each do |i| 
+            data.push({user: i.user,teacher: i.teacher})
+        end
+        render json: data
     end
     def get_students
         @ur = get_role(3)
-        render json: {@ur.student , @ur.user}
+        data = []
+        @ur.each do |i| 
+            data.push({user: i.user,student: i.student})
+        end
+        render json: data
     end
     def create_user
         #params[
@@ -19,6 +31,7 @@ class AdminController < ApplicationController
           # :birthday,
           # :address,
           # :role]
+          byebug
         user = User.create!(
             name: params[:name],
             email: params[:email],
@@ -26,16 +39,18 @@ class AdminController < ApplicationController
             birthday: params[:birthday],
             password: params[:password],
         )
-        ur = user.user_roles.create(role: 1)
+        ur = user.user_roles.create(role: parmas[:role])
         case params[:role]
             when 1
-                Teacher.create(user_role_id: ur.id)
+                teacher =Teacher.create(user_role_id: ur.id)
+                render json: {:role=> params[:role],data =>{:user=> user, :teacher => teacher}}
             when 2
-                Parent.create(user_role_id: ur.id)
+                parent =Parent.create(user_role_id: ur.id)
+                render json: {:role=> params[:role],data=>{:user=> user, :parent => parent}}
             when 3
-                Student.create(user_role_id: ur.id)
+                student =Student.create(user_role_id: ur.id)
+                render json: {:role=> params[:role],data=>{:user=> user, :student => student}}
         end
-        render json: user
     end
     private 
         def get_role role
