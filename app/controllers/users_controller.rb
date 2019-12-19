@@ -1,6 +1,15 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [ :update, :destroy]
 
+  def getProfile
+    @user = User.find_by(authentication_token: params[:authentication_token])
+    if @user
+      @roles = @user.user_roles
+      render json: {user:@user.as_json(except: [:updated_at,:created_at,:id]),roles: @roles.as_json(except: [:updated_at,:created_at])}, status: 200      
+    else
+      render status: 404
+    end
+  end
   # GET /users
   def index
     @users = User.all
@@ -9,6 +18,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
+    @user = User.find_by(authentication_token: params[:authentication_token])
     if @user
       @roles = @user.user_roles
       render json: {user:@user.as_json(except: [:updated_at,:created_at,:id]),roles: @roles.as_json(except: [:updated_at,:created_at])}, status: 200      
