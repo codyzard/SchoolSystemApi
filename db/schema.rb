@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_12_032107) do
+ActiveRecord::Schema.define(version: 2019_12_18_095023) do
 
   create_table "announces", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content"
@@ -28,13 +28,15 @@ ActiveRecord::Schema.define(version: 2019_12_12_032107) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "subject_id"
-    t.bigint "storage_id"
     t.string "pin_file_name"
     t.string "pin_content_type"
     t.bigint "pin_file_size"
     t.datetime "pin_updated_at"
-    t.index ["storage_id"], name: "index_documents_on_storage_id"
+    t.bigint "teacher_id"
+    t.bigint "grade_id"
+    t.index ["grade_id"], name: "index_documents_on_grade_id"
     t.index ["subject_id"], name: "index_documents_on_subject_id"
+    t.index ["teacher_id"], name: "index_documents_on_teacher_id"
   end
 
   create_table "grades", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -129,13 +131,6 @@ ActiveRecord::Schema.define(version: 2019_12_12_032107) do
     t.index ["score_arr_id"], name: "index_scores_on_score_arr_id"
   end
 
-  create_table "storages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "teacher_id"
-    t.index ["teacher_id"], name: "index_storages_on_teacher_id"
-  end
-
   create_table "students", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_role_id"
     t.datetime "created_at", null: false
@@ -190,8 +185,9 @@ ActiveRecord::Schema.define(version: 2019_12_12_032107) do
 
   add_foreign_key "announces", "lop_hocs"
   add_foreign_key "announces", "teachers"
-  add_foreign_key "documents", "storages"
+  add_foreign_key "documents", "grades"
   add_foreign_key "documents", "subjects"
+  add_foreign_key "documents", "teachers"
   add_foreign_key "lessons", "grades"
   add_foreign_key "lessons", "subjects"
   add_foreign_key "lessons", "teachers"
@@ -207,10 +203,10 @@ ActiveRecord::Schema.define(version: 2019_12_12_032107) do
   add_foreign_key "score_arrs", "students"
   add_foreign_key "score_arrs", "subjects"
   add_foreign_key "scores", "score_arrs"
-  add_foreign_key "storages", "teachers"
   add_foreign_key "students", "lop_hocs"
   add_foreign_key "students", "parents"
   add_foreign_key "students", "user_roles"
   add_foreign_key "teachers", "subjects"
+  add_foreign_key "teachers", "user_roles"
   add_foreign_key "user_roles", "users"
 end
