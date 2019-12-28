@@ -74,7 +74,7 @@ Subject.create!(name: "Địa lý")
 Subject.create!(name: "Ngữ văn")
 
 8.times do |lop|
-    l=LopHoc.create!(grade_id: (lop/2+1),name: "#{lop/2+6}"+"/"+"#{lop+1/2+1}", lopChuyen: rand(0..1))
+    l=LopHoc.create!(grade_id: (lop/2+1),name: "#{lop/2+6}"+"/"+"#{lop%2+1}", lopChuyen: rand(0..1))
     7.times do |a|
         l.teachers<<Teacher.find(a+1+(lop/2)*7+1)
     end
@@ -96,10 +96,10 @@ end
     2.times do |semester|
         7.times do |subject|
             sa=ScoreArr.create!(student_id:student+1, semester:semester+1, subject_id:subject+1, lop_hoc_id:Student.find(student+1).lop_hoc_id)
-            sa.scores.create!(heso:1,score:rand(5..10))
-            sa.scores.create!(heso:1,score:rand(5..10))
-            sa.scores.create!(heso:2,score:rand(5..10))
-            sa.scores.create!(heso:3,score:rand(5..10))
+            sa.scores.create!(heso:1, score:-1)
+            sa.scores.create!(heso:1, score:-1)
+            sa.scores.create!(heso:2, score:-1)
+            sa.scores.create!(heso:3, score:-1)
         end
     end
 end
