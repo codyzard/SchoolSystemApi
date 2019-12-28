@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :lessons
   resources :lop_hocs do 
     member do
-      get 'all_student_info'
+      # get 'all_student_info'
       get 'all_student_score'
     end
   end
@@ -39,6 +39,11 @@ Rails.application.routes.draw do
   get '/admins/getStudents', to: 'admin#get_students'
   get '/admins/getTeachers', to: 'admin#get_teachers' 
   get '/admins/getParents', to: 'admin#get_parents'  
-  post '/admins/createUser', to: 'admin#create_user' 
+  post '/admins/createUser', to: 'admin#create_user'
+  post '/admins/updateUser', to: 'admin#update_user'
+  #classes by teacher
+  post '/lop_hocs_every_teacher', to: 'lop_hocs#getAllClassEveryTeacher'
+  post '/students_in_lophoc', to: 'lop_hocs#all_student_info'
+  post '/students_score_in_lophoc', to: 'lop_hocs#all_student_score'
   mount ActionCable.server => '/rooms'
 end

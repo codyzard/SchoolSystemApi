@@ -1,7 +1,8 @@
 class LopHocsController < ApplicationController
-  before_action :set_lop_hoc, only: [:show, :update, :destroy, :all_student_info, :all_student_score]
+  before_action :set_lop_hoc, only: [:show, :update, :destroy]
+
   def all_student_info
-    @students = Student.where(lop_hoc_id: @lop_hoc.id)
+    @students = Student.where(lop_hoc_id: params[:id_class])
     @paramss = []
     @students.each {|s| 
       @parent = Parent.find(s.parent_id)
@@ -12,9 +13,9 @@ class LopHocsController < ApplicationController
       @paramss.push(@params)}
     render json: @paramss
   end
+
   def all_student_score
-    # byebug
-    @students = Student.where(lop_hoc_id: @lop_hoc.id)
+    @students = Student.where(lop_hoc_id: params[:id_class])
     # User.find_by(authentication_token: params[:authentication_token])
     # byebug
     @teacher =  Teacher.find_by(user_role_id: User.find_by(authentication_token: params[:authentication_token]).user_roles.find_by(role:1).id)
@@ -66,6 +67,43 @@ class LopHocsController < ApplicationController
   def destroy
     @lop_hoc.destroy
   end
+  
+  def getAllClassEveryTeacher
+    @user = User.find_by(authentication_token: params[:token])
+    @classes = nil
+    role1 = @user.user_roles[0]
+    role2 = @user.user_roles[1]
+    if role1.role === 1
+      @classes = role1.teacher.lop_hocs
+    else role2 && role2.role  === 1
+      @classes = role2.teacher.lop_hocs
+    end
+    if @classes != nil && @classes.length > 0
+      @numberStudents = studentCount(@classes)
+      render json:{classes: @classes , numberStudents: @numberStudents }, status: 200
+    else
+      render status: 404
+    end
+  end
+
+  def studentCount classes
+    numberStudents = []
+    classes.each_with_index do |s|
+      numberStudents << s.students.count
+    end
+    return numberStudents
+  end
+
+  # def getStudentInClass
+  #   @lop_hoc = LopHoc.find(params[:id_class])
+  #   @students = @lop_hoc.students
+  #   byebug
+  #   if @students && @students != []
+  #     render json: {students: @students}, status: 200
+  #   else
+  #     render status: 404
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
