@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2019_12_18_095023) do
   create_table "documents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "description"
+    t.string "link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "subject_id"
