@@ -96,10 +96,10 @@ end
     2.times do |semester|
         7.times do |subject|
             sa=ScoreArr.create!(student_id:student+1, semester:semester+1, subject_id:subject+1, lop_hoc_id:Student.find(student+1).lop_hoc_id)
-            sa.scores.create!(heso:1)
-            sa.scores.create!(heso:1)
-            sa.scores.create!(heso:2)
-            sa.scores.create!(heso:3)
+            sa.scores.create!(heso:1, score:-1)
+            sa.scores.create!(heso:1, score:-1)
+            sa.scores.create!(heso:2, score:-1)
+            sa.scores.create!(heso:3, score:-1)
         end
     end
 end

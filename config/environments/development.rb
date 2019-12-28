@@ -52,5 +52,7 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.action_mailer.default_url_options = { host: 'localhost', port: '3000' }
-  # Paperclip.options[:command_path] = "/usr/bin/"
+  
+  #Xem chi tiet trang Paperclip gem de set command_path phu hop voi may minh
+  Paperclip.options[:command_path] = "/usr/bin/"
 end

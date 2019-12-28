@@ -46,15 +46,22 @@ class ScoreArrsController < ApplicationController
     @user = User.find(@user_role.user_id)
     @score_detail_arr = params[:score_arr]
     @score_arr.first.scores.each_with_index do |s,index| 
-      s.score = @score_detail_arr[index]
+      if @score_detail_arr[index] < 0 || @score_detail_arr[index] > 10
+        s.score = -1
+      else
+        s.score = @score_detail_arr[index]
+      end
       s.save
     end
     # byebug
     @score_arr.second.scores.each_with_index do |s,index|
-      s.score = @score_detail_arr[index+4] 
+      if @score_detail_arr[index+4] < 0 || @score_detail_arr[index+4] > 10
+        s.score = -1
+      else
+        s.score = @score_detail_arr[index+4] 
+      end
       s.save
     end
-    # byebug
     if @score_arr && @subject && @user
       render json: {mssv: @student.id, name: @user.name, HK1: @score_arr.first.scores, HK2: @score_arr.second.scores, subject: @subject}
     else

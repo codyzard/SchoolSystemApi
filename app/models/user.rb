@@ -10,4 +10,4 @@ class User < ActiveRecord::Base
   has_many :room_users, dependent: :destroy
   has_many :rooms, through: :room_users, dependent: :destroy
   has_many :messes, dependent: :destroy
-end
+4end

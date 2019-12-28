@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :update, :destroy]
-  before_action :find_user, only: [:getRoom, :create_group_class_chat]
+  before_action :find_user, only: [:getRoom, :create_group_class_chat,:create_room_1vs1, :havedFriend]
   # GET /rooms
   def getRoom
     @rooms = @user.rooms
@@ -80,6 +80,29 @@ class RoomsController < ApplicationController
           render status: 404
         end
       end
+  end
+  
+  def create_room_1vs1
+    @student = Student.find(params[:id_student])
+    @friend = @student.user_role.user
+    @nameRoom = @user.name + ", " + @friend.name + "-(token: "+ @user.authentication_token+ "/" + @friend.authentication_token + ")"
+    check = check_exist_room_class(@nameRoom)
+    if check
+      render status: 404     
+    else
+      @room = @user.rooms.create    
+      @room.update_attributes(name:  @nameRoom)
+      @room.users << @friend
+      render json: @room, status: 200
+    end
+  end
+  
+  def havedFriend
+    @student = Student.find(params[:id_student])
+    @friend = @student.user_role.user
+    @nameRoom = @user.name + ", " + @friend.name + "-(token: "+ @user.authentication_token+ "/" + @friend.authentication_token + ")"
+    check = check_exist_room_class(@nameRoom)
+    render json: check, status: 200
   end
 
   private

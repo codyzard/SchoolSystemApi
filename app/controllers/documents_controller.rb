@@ -18,6 +18,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     if @document.save
+      @document.upload_drive
       render json: @document, status: :created, location: @document
     else
       render json: @document.errors, status: :unprocessable_entity
@@ -46,6 +47,6 @@ class DocumentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def document_params
-      params.require(:document).permit(:title, :description, :pin)
+      params.require(:document).permit(:title, :description, :teacher_id, :grade_id, :subject_id, :pin)
     end
 end
