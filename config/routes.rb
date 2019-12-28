@@ -15,11 +15,12 @@ Rails.application.routes.draw do
     end
   end
   resources :messes
-  get '/getMessInRoom/:room_id', to: 'messes#getMessInRoom'
+  post '/getMessInRoom', to: 'messes#getMessInRoom'
   get '/getSendPerson/:user_token', to: 'messes#getSendPerson'
   resources :parents
   # resources :rooms
-  get '/rooms/:authentication_token', to: 'rooms#index'
+  # get '/rooms/:authentication_token', to: 'rooms#index'
+  post '/rooms/getRoom', to: 'rooms#getRoom'
   resources :score_arrs
   resources :scores
   resources :storages
@@ -37,10 +38,13 @@ Rails.application.routes.draw do
   resources :user_roles
   get '/users/:authentication_token', to: 'users#show'
   put '/users/:authentication_token', to: 'users#update'
+  #profile
+  post 'users/getProfile', to: "users#getProfile"
   #classes by teacher
   post '/lop_hocs_every_teacher', to: 'lop_hocs#getAllClassEveryTeacher'
   post '/students_in_lophoc', to: 'lop_hocs#all_student_info'
   post '/students_score_in_lophoc', to: 'lop_hocs#all_student_score'
+  post '/update_student_score', to: 'score_arrs#update_student_score'
   mount ActionCable.server => '/rooms'
   
 end

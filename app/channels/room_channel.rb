@@ -8,6 +8,7 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def create params
+    # byebug
     @user = User.find_by(authentication_token: params["token_user"] )
     @room = Room.find_by(authentication_token: params["token_room"])
     if @user

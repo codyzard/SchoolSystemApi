@@ -74,7 +74,7 @@ Subject.create!(name: "Địa lý")
 Subject.create!(name: "Ngữ văn")
 
 8.times do |lop|
-    l=LopHoc.create!(grade_id: (lop/2+1),name: "#{lop/2+6}"+"/"+"#{lop/2+1}", lopChuyen: rand(0..1))
+    l=LopHoc.create!(grade_id: (lop/2+1),name: "#{lop/2+6}"+"/"+"#{lop+1/2+1}", lopChuyen: rand(0..1))
     7.times do |a|
         l.teachers<<Teacher.find(a+1+(lop/2)*7+1)
     end

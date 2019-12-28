@@ -1,7 +1,13 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :update, :destroy]
-  before_action :find_user, only: [:index]
+  before_action :find_user, only: [:getRoom]
   # GET /rooms
+  def getRoom
+    @rooms = @user.rooms
+    @lastMessArr = getLastMess(@rooms)
+    render json: {rooms: @rooms, lastMessArr: @lastMessArr }
+  end
+
   def index
     # @rooms = Room.all
     @rooms = @user.rooms

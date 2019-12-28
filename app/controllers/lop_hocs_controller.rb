@@ -26,8 +26,8 @@ class LopHocsController < ApplicationController
       @user_role = UserRole.find(s.user_role_id)
       @user = User.find(@user_role.user_id)
       @score_arr = s.score_arrs.where(subject_id: @teacher.subject_id)
-      # byebug
-      @params = {mssv: s.id, name: @user.name, HK1: @score_arr.first.scores, HK2: @score_arr.second.scores}
+      @subject = Subject.find(@teacher.subject_id)
+      @params = {mssv: s.id, name: @user.name, HK1: @score_arr.first.scores, HK2: @score_arr.second.scores, subject: @subject}
       @paramss.push(@params)}
     render json: @paramss
   end

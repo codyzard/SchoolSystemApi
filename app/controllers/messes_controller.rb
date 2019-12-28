@@ -41,6 +41,7 @@ class MessesController < ApplicationController
   
   def getMessInRoom
     @room = Room.find_by(id: params[:room_id])
+    # byebug
     @messes = @room.messes
     @users = @room.users
     render json: {
