@@ -38,7 +38,7 @@ class AdminController < ApplicationController
             birthday: params[:birthday],
             password: params[:password],
         )
-        ur = user.user_roles.create(role: parmas[:role])
+        ur = user.user_roles.create(role: params[:role])
         case params[:role]
             when 1
                 teacher =Teacher.create(user_role_id: ur.id)
@@ -53,6 +53,7 @@ class AdminController < ApplicationController
     end
     def update_user
         #params[
+          # :id,
           # :name,
           # :email,
           # :password,
