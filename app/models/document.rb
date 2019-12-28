@@ -12,10 +12,16 @@ class Document < ApplicationRecord
         session = GoogleDrive::Session.from_config('config.json')
         path = "#{Rails.root}/public/files/#{id}/#{pin_file_name}"
         file = session.upload_from_file(path, "#{pin_file_name}", convert: false)
-        #puts "FILE: #{file.human_url}"
         folder_id = '1RZpkauLoYRxH41FVnhdhYSghnXAbd0Rq'    #id thu muc school files                                                         
         folder = session.collection_by_id(folder_id)
         folder.add(file)
         update_attribute(:link, file.human_url)
     end
+    def delete_file
+        session = GoogleDrive::Session.from_config('config.json')
+        file  = session.file_by_url(link)
+        file.delete(permanent = true)
+        
+    end
+
 end
