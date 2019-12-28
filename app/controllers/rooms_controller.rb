@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :update, :destroy]
-  before_action :find_user, only: [:getRoom]
+  before_action :find_user, only: [:getRoom, :create_group_class_chat]
   # GET /rooms
   def getRoom
     @rooms = @user.rooms
@@ -55,6 +55,31 @@ class RoomsController < ApplicationController
   # DELETE /rooms/1
   def destroy
     @room.destroy
+  end
+
+  #Create group chat for class
+  def check_exist_room_class nameGroup
+    Room.all.include?(Room.find_by(name: nameGroup));
+  end
+  
+  def create_group_class_chat
+      @lophoc = LopHoc.find(params[:id_lophoc])
+      @students = @lophoc.students
+      @nameGroup = @lophoc.name + "(Khoa: " + @lophoc.created_at.year.to_s + ")"+"-(token: "+@user.authentication_token+")" 
+      check = check_exist_room_class(@nameGroup)
+      if check
+        render status: 204
+      else
+        @room = @user.rooms.create(name: @nameGroup)
+        @students.each_with_index do |s,i|
+          @room.users << s.user_role.user
+        end
+        if @room != nil
+          render json: @room, status: 200
+        else
+          render status: 404
+        end
+      end
   end
 
   private

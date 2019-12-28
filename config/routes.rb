@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   post '/students_in_lophoc', to: 'lop_hocs#all_student_info'
   post '/students_score_in_lophoc', to: 'lop_hocs#all_student_score'
   post '/update_student_score', to: 'score_arrs#update_student_score'
+  post '/create_group_class_chat', to: 'rooms#create_group_class_chat'
   mount ActionCable.server => '/rooms'
   
 end
