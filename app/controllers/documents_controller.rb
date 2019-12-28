@@ -36,7 +36,9 @@ class DocumentsController < ApplicationController
 
   # DELETE /documents/1
   def destroy
+    @document.delete_file
     @document.destroy
+    render @document
   end
 
   private
