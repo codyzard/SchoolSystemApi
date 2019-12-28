@@ -65,7 +65,9 @@ class RoomsController < ApplicationController
   def create_group_class_chat
       @lophoc = LopHoc.find(params[:id_lophoc])
       @students = @lophoc.students
-      @nameGroup = @lophoc.name + "(Khoa: " + @lophoc.created_at.year.to_s + ")"+"-(token: "+@user.authentication_token+")" 
+      @teacher = Teacher.find_by(user_role_id: @user.user_roles[0])
+      @subject = Subject.find(@teacher.subject_id)
+      @nameGroup = @lophoc.name + "(Mon: "+ @subject.name + "/ Khoa: " + @lophoc.created_at.year.to_s + ")"+"-(token: "+@user.authentication_token+")" 
       check = check_exist_room_class(@nameGroup)
       if check
         render status: 204
