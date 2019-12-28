@@ -1,15 +1,42 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :update, :destroy, :student_detail]
+  before_action :set_student, only: [:show, :update, :destroy, :student_detail, :student_score]
 
+  def student_detail_with_token
+    @student = Student.find_by(user_role_id:User.find_by(authentication_token: params[:authentication_token]).user_roles[0].id)
+    @parent = Parent.find(@student.parent_id)
+    @parent_user = User.find(UserRole.find(@parent.user_role_id).user_id)
+    @user_role = UserRole.find(@student.user_role_id)
+    @user = User.find(@user_role.user_id)
+    @params = {student_user_info:@user,student_info:@student,parent_info:@parent_user}
+    # @parasm = @parent_user
+    render json: @params
+  end
   def student_detail
     @parent = Parent.find(@student.parent_id)
     @parent_user = User.find(UserRole.find(@parent.user_role_id).user_id)
     @user_role = UserRole.find(@student.user_role_id)
     @user = User.find(@user_role.user_id)
-    @params = {mssv: @student.id, name: @user.name, parent:@parent_user.name, address: @user.address}
+    @params = {lop_hoc_id:@student.lop_hoc_id,mssv: @student.id, name: @user.name, parent:@parent_user.name, parent_detail: @parent_user, address: @user.address, email:@user.email, birthday: @user.birthday}
     render json: @params
   end
 
+  def student_score
+    @score_arr =  @student.score_arrs
+    @params = []
+    @hocki= []
+    dem = 0
+    hk= 0
+    @score_arr.each{ |sa|
+      hk=dem/7+1
+      @hocki.push(heso1:sa.scores[0].score,heso2:sa.scores[1].score,heso3:sa.scores[2].score,heso4:sa.scores[3].score,mon:Subject.find(sa.subject_id).name,hocki:"HK "+"#{(hk-1)%2+1} "+"năm "+"#{(hk-1)/2+1}")
+      if((dem+1)%7==0)
+        @params.push(@hocki)
+        @hocki = []
+      end
+      dem+=1
+    }
+    render json: @params
+  end
   # GET /students
   def index
     @students = Student.all

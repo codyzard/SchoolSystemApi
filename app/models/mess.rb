@@ -1,6 +1,6 @@
 class Mess < ApplicationRecord
-    belongs_to :user
-    belongs_to :room
+    belongs_to :user, dependent: :destroy
+    belongs_to :room, dependent: :destroy
     after_create_commit do
         SendMessCreationEventBroadcastJob.perform_later(self)
     end

@@ -13,9 +13,15 @@ class Users::SessionsController < Devise::SessionsController
     # byebug
     user = User.where(email: params[:email]).first
     roles =  user.user_roles
+    teacher = roles[0].teacher
     # byebug
     if user && user.valid_password?(params[:password]) && roles
-        render json: {user:user.as_json(except: [:updated_at,:created_at]),roles: roles.as_json(except: [:updated_at,:created_at])}, status: 201
+        render json: {
+        user:user.as_json(except: [:updated_at,:created_at]),
+        roles: roles.as_json(except: [:updated_at,:created_at]),
+        teacher: teacher.as_json(except: [:updated_at,:created_at])
+        }, 
+        status: 201
 
     else
         head(:unauthorized)
