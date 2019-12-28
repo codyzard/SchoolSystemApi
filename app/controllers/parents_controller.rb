@@ -38,6 +38,25 @@ class ParentsController < ApplicationController
     @parent.destroy
   end
 
+  def getChildrenOfParent
+    #Dung user_id de tim parent
+    # byebug
+    @parent_user = User.find_by(authentication_token: params[:authentication_token])
+    # byebug
+    @parent = Parent.find_by(user_role_id:@parent_user.user_roles.find_by(role:2).id)
+
+    @students = @parent.students
+    @paramss = []
+    @students.each {|s| 
+      # @parent = Parent.find(s.parent_id)
+      # @parent_user = User.find(UserRole.find(@parent.user_role_id).user_id)
+      @user_role = UserRole.find(s.user_role_id)
+      @user = User.find(@user_role.user_id)
+      @params = {student_id:s.id ,name: @user.name, lop_hoc: LopHoc.find(s.lop_hoc_id).name, email:@user.email, birthday:@user.birthday,address:@user.address}
+      @paramss.push(@params)}
+    render json: @paramss
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_parent

@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :students do
     member do
       get 'student_detail'
+      get 'student_score'
     end
   end
   resources :subjects
@@ -42,5 +43,8 @@ Rails.application.routes.draw do
   post '/students_in_lophoc', to: 'lop_hocs#all_student_info'
   post '/students_score_in_lophoc', to: 'lop_hocs#all_student_score'
   mount ActionCable.server => '/rooms'
-  
+
+  #parent
+  post '/childrenOfParent', to: 'parents#getChildrenOfParent'
+  post '/student_detail_with_token', to: 'students#student_detail_with_token'
 end
