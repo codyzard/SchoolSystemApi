@@ -38,6 +38,37 @@ class ScoreArrsController < ApplicationController
     @score_arr.destroy
   end
 
+  def update_student_score
+    @score_arr = ScoreArr.where(student_id: params[:id_student], subject_id: params[:id_subject])
+    @student = Student.find(params[:id_student]);
+    @subject = Subject.find(params[:id_subject])
+    @user_role = UserRole.find(@student.user_role_id);
+    @user = User.find(@user_role.user_id)
+    @score_detail_arr = params[:score_arr]
+    @score_arr.first.scores.each_with_index do |s,index| 
+      if @score_detail_arr[index] < 0 || @score_detail_arr[index] > 10
+        s.score = -1
+      else
+        s.score = @score_detail_arr[index]
+      end
+      s.save
+    end
+    # byebug
+    @score_arr.second.scores.each_with_index do |s,index|
+      if @score_detail_arr[index+4] < 0 || @score_detail_arr[index+4] > 10
+        s.score = -1
+      else
+        s.score = @score_detail_arr[index+4] 
+      end
+      s.save
+    end
+    if @score_arr && @subject && @user
+      render json: {mssv: @student.id, name: @user.name, HK1: @score_arr.first.scores, HK2: @score_arr.second.scores, subject: @subject}
+    else
+      render status: 404
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_score_arr

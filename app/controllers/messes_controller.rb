@@ -41,8 +41,14 @@ class MessesController < ApplicationController
   
   def getMessInRoom
     @room = Room.find_by(id: params[:room_id])
-    @messes = Mess.where(room_id: @room.id)
-    render json: {messes: @messes.as_json(except: [:user_id]), token_room: @room.authentication_token}
+    # byebug
+    @messes = @room.messes
+    @users = @room.users
+    render json: {
+      messes: @messes.as_json(except: [:user_id]), 
+      users: @users.as_json(except: [:user_id]),
+      token_room: @room.authentication_token
+    }
   end
 
   def getSendPerson
