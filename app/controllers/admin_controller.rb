@@ -43,15 +43,6 @@ class AdminController < ApplicationController
             password: params[:password],
         )
         ur = user.user_roles.create(role: params[:role])
-<<<<<<< HEAD
-        case params[:role].to_i
-            when 1
-                Teacher.create(user_role_id: ur.id)
-            when 2
-                Parent.create(user_role_id: ur.id)
-            when 3
-                Student.create(user_role_id: ur.id)
-=======
         case params[:role]
             when 1
                 teacher =Teacher.create(user_role_id: ur.id)
@@ -88,7 +79,6 @@ class AdminController < ApplicationController
                 render json: {:role=> params[:role],data=>{:user=> user, :parent => user.user_roles.find_by(role:2).parent}}
             when 3
                 render json: {:role=> params[:role],data=>{:user=> user, :student => user.user_roles.find_by(role:3).student}}
->>>>>>> 5d28aead4a141c8c99edd1b1c0bdd6ce6e3a8634
         end
     end
 
